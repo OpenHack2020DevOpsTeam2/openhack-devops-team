@@ -2,7 +2,7 @@
 # POI Service
 
 ## Overview
-RH VS 1
+RH VS 2
 ## Build the Application
 
 ## Tests
