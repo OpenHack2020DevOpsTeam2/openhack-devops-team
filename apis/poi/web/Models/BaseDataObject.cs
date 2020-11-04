@@ -4,6 +4,7 @@ using System.Text;
 
 namespace poi.Models
 {
+This is a breaking change
     public class BaseDataObject
     {
         public string Id { get; set; }
