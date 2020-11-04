@@ -9,10 +9,10 @@ FROM openjdk:11-jre-slim
 
 EXPOSE 8080
 
-ENV SQL_USER="demousersa" \
-SQL_PASSWORD="demo@pass123" \
-SQL_SERVER="openhackdz41qgg3sql.database.windows.net" \
-SQL_DBNAME="mydrivingDB"
+ENV SQL_USER=${sql_user} \
+SQL_PASSWORD=${sql_pwd} \
+SQL_SERVER=${sql_svr} \
+SQL_DBNAME=${sql_db}
 
 # Add the application's jar to the container
 COPY --from=build-env target/swagger-spring-1.0.0.jar user-java.jar
