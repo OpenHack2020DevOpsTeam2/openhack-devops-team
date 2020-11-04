@@ -35,7 +35,7 @@ jobs:
         run: az acr build --image "devopsoh/api-user-java:${{ github.run_id }}" --registry ${{ env.acrname }} --file Dockerfile .
         working-directory: ${{env.working-directory}}
 
-      - name: WebApp deploy
+      - name: WebApp deployment
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.appname }}
