@@ -64,7 +64,7 @@ jobs:
               -g ${{ env.rg }} \
               -n ${{ env.appname }} \
               --slot staging \
-              --configuration-source production
+              --configuration-source ${{ env.appname }}
 
       - name: WebApp deploy
         uses: azure/webapps-deploy@v2
@@ -120,15 +120,6 @@ jobs:
         run: ./tools/healthcheck.sh ${{ env.production_url }}
         shell: bash
 
-      - name: Delete staging slot
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az webapp deployment slot delete \
-              -g ${{ env.rg }} \
-              -n ${{ env.appname }} \
-              --slot staging
-
       - name: Rollback Prod->Staging
         if: ${{ failure() }}
         uses: azure/CLI@v1
@@ -139,6 +130,15 @@ jobs:
               -n ${{ env.appname }} \
               --slot production \
               --target-slot staging
+
+      - name: Delete staging slot
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp deployment slot delete \
+              -g ${{ env.rg }} \
+              -n ${{ env.appname }} \
+              --slot staging
 
       - name: The job has failed
         if: ${{ failure() }}
