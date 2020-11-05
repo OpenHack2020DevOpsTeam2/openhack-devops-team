@@ -2,7 +2,7 @@
 # POI Service
 
 ## Overview
-GitHub Action RH 17.0 trigger!
+GitHub Action RH 19.0 trigger!
 
 ## Build the Application
 
