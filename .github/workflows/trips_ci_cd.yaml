@@ -13,7 +13,7 @@ env:
   appname: openhackdz41qgg3trips
   image_tag: ${{ github.run_id }}
   staging_url: https://openhackdz41qgg3trips-staging.azurewebsites.net/api/healthcheck/trips
-  production-url: https://openhackdz41qgg3trips.azurewebsites.net/api/healthcheck/trips
+  production_url: https://openhackdz41qgg3trips.azurewebsites.net/api/healthcheck/trips
   rg: openhackdz41qgg3rg
 
 jobs:
@@ -91,8 +91,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
              
-      - name: Rollback Prod->Staging
-        if: ${{ failure() }}
+      - name: Swap – promote staging to production
         uses: azure/CLI@v1
         with:
           inlineScript: |
