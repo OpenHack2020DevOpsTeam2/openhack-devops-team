@@ -64,7 +64,8 @@ jobs:
           images: ${{ env.acrname }}/devopsoh/api-trips:${{ env.image_tag }}
 
       - name: Test staging
-        uses: ./tools/healthcheck.sh ${{ env.staging_url }}
+        run: ./tools/healthcheck.sh ${{ env.staging_url }}
+        shell: bash
 
       - name: The job has failed
         if: ${{ failure() }}
@@ -102,7 +103,8 @@ jobs:
               --target-slot production
 
       - name: Test production
-        uses: ./tools/healthcheck.sh ${{ env.production_url }}
+        run: ./tools/healthcheck.sh ${{ env.production_url }}
+        shell: bash
 
       - name: Rollback Prod->Staging
         if: ${{ failure() }}
