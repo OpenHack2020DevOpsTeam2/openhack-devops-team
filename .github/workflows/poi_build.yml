@@ -9,6 +9,7 @@ on:
 
 env:
   working-directory: ./apis/poi/web/
+  working-directory2: ./apis/poi/
   acrname: openhackdz41qgg3acr.azurecr.io
   app_name: api-poi
   appname: openhackdz41qgg3poi
@@ -48,9 +49,9 @@ jobs:
           images: ${{ env.acrname }}/devopsoh/api-poi:${{ github.run_id }}
       
       - name: Check staging health
-        run: sudo ../health_check_stage.sh     
         shell: bash
-        working-directory: ${{env.working-directory}}        
+        working-directory: ${{env.working-directory2}}        
+        run: ./health_check_stage.sh     
         
       - name: Promote staging to production
         uses: azure/CLI@v1
