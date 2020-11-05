@@ -55,13 +55,28 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-                    
+
+      - name: Create staging slot
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp deployment slot create \
+              -g ${{ env.rg }} \
+              -n ${{ env.appname }} \
+              --slot staging \
+              --configuration-source production
+
       - name: WebApp deploy
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.appname }}
           slot-name: staging
           images: ${{ env.acrname }}/devopsoh/api-trips:${{ env.image_tag }}
+
+      - name: Sleep for 120 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+           time: '120s'
 
       - name: Test staging
         run: ./tools/healthcheck.sh ${{ env.staging_url }}
@@ -104,6 +119,15 @@ jobs:
       - name: Test production
         run: ./tools/healthcheck.sh ${{ env.production_url }}
         shell: bash
+
+      - name: Delete staging slot
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az webapp deployment slot delete \
+              -g ${{ env.rg }} \
+              -n ${{ env.appname }} \
+              --slot staging
 
       - name: Rollback Prod->Staging
         if: ${{ failure() }}
