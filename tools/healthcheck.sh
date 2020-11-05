@@ -61,6 +61,9 @@ while [[ true ]]; do
      echo "$timestamp | $status "
    else
      echo "$timestamp | $status | $endpoint " 
-   fi 
+   fi
+   if [[ $status -eq '200' ]]; then
+     exit 0
+   fi
    sleep $duration
 done
