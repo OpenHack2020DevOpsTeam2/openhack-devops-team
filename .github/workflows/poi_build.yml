@@ -48,8 +48,9 @@ jobs:
           images: ${{ env.acrname }}/devopsoh/api-poi:${{ github.run_id }}
       
       - name: Check staging health
-        run: sudo ./apis/poi/health_check_stage.sh     
+        run: sudo ../health_check_stage.sh     
         shell: bash
+        working-directory: ${{env.working-directory}}        
         
       - name: Promote staging to production
         uses: azure/CLI@v1
