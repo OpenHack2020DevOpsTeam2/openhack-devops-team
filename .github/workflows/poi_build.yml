@@ -48,8 +48,7 @@ jobs:
           images: ${{ env.acrname }}/devopsoh/api-poi:${{ github.run_id }}
       
       - name: Run build
-        run: ./health_check_stage.sh
-        working-directory: ${{env.working-directory}}        
+        run: ./apis/poi/health_check_stage.sh     
         shell: bash
         
       - name: Promote staging to production
