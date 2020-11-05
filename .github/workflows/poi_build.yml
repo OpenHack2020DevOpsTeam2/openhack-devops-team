@@ -51,7 +51,7 @@ jobs:
       - name: Check staging health
         shell: bash
         working-directory: ${{env.working-directory2}}        
-        run: sudo ./health_check_staging.sh     
+        run: ./health_check_staging.sh     
         
       - name: Promote staging to production
         uses: azure/CLI@v1
